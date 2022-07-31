@@ -13,19 +13,13 @@ knob.matrix = KeysScanner([])
 media_keys = MediaKeys()
 knob.extensions.append(media_keys)
 
-# Rotary encoders that also acts as keys
+# Rotary encoder that also acts as a key
 encoder_handler = EncoderHandler()
-encoder_handler.pins = (
-    (board.D1, board.D2, board.D0),
-    (board.D9, board.D10, board.D3),
-    (board.D7, board.D8, board.D6),
-)
-encoder_handler.map = (
-    ((KC.VOLD, KC.VOLU, KC.MUTE), (KC.UP, KC.DOWN, KC.A), (KC.RIGHT, KC.LEFT, KC.B)),
-)
+encoder_handler.pins = ((board.D1, board.D2, board.D0),)
+encoder_handler.map = (((KC.VOLD, KC.VOLU, KC.MUTE),),)
 knob.modules.append(encoder_handler)
 
-print('ANAVI Knobs 3')
+print('ANAVI Knob 1')
 
 rgb_ext = RGB(
     pixel_pin=board.NEOPIXEL,
