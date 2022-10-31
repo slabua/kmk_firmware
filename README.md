@@ -1,7 +1,7 @@
 # KMK: Clackety Keyboards Powered by Python
 ![GitHub](https://img.shields.io/github/license/KMKfw/kmk_firmware)
 ![GitHub contributors](https://img.shields.io/github/contributors/KMKfw/kmk_firmware)
-![Discord](https://img.shields.io/discord/493256121075761173?logo=Discord)
+[![Discord](https://img.shields.io/discord/493256121075761173?logo=Discord)](https://discord.gg/QBHUUpeGUd)
 ![Lines of code](https://img.shields.io/tokei/lines/github/KMKfw/kmk_firmware)
 ![GitHub issues](https://img.shields.io/github/issues-raw/KMKfw/kmk_firmware)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/KMKfw/kmk_firmware)
@@ -12,17 +12,11 @@ KMK is a feature-rich and beginner-friendly firmware for computer keyboards
 written and configured in
 [CircuitPython](https://github.com/adafruit/circuitpython).
 
-**KMK is currently looking for maintainers.** If you like keyboards and/or
-Python, and ideally have contributed to KMK in the past, and are interested in
-(co-)maintaining KMK, comment on [the relevant GitHub
-issue](https://github.com/KMKfw/kmk_firmware/issues/196) or drop by the Matrix
-channel below.
-
-> If you need support with KMK or just want to say hi, find us in
-> [#kmkfw:klar.sh on Matrix](https://matrix.to/#/#kmkfw:klar.sh).  This channel
-> is bridged to Discord
-> [here](https://discord.gg/QBHUUpeGUd) for
-> convenience.
+Synchronous chatter about KMK is available in the official Matrix room,
+[#kmkfw:klar.sh](https://matrix.to/#/#kmkfw:klar.sh). (Note: the KMK chat room
+is **not** a bug tracker, and it is **not** necessarily monitored by the
+maintainer crew, though we may lurk there sometimes.) This channel is bridged
+to Discord [here](https://discord.gg/QBHUUpeGUd) for convenience.
 
 ## Features
 
@@ -30,38 +24,24 @@ channel below.
   on a "flash-drive"-esque space on your microcontroller - edit on the go
   without DFU or other devtooling available!
 - Single-piece or [two-piece split
-  keyboards](https://github.com/KMKfw/kmk_firmware/blob/master/docs/split_keyboards.md)
+  keyboards](/docs/en/split_keyboards.md)
   are supported
 - [Chainable
-  keys](https://github.com/KMKfw/kmk_firmware/blob/master/docs/keys.md) such as
+  keys](/docs/en/keys.md) such as
   `KC.LWIN(KC.L)` to lock the screen on a Windows PC
 - [Built-in Unicode macros, including
-  emojis](https://github.com/KMKfw/kmk_firmware/blob/master/docs/sequences.md)
-- [RGB underglow](https://github.com/KMKfw/kmk_firmware/blob/master/docs/rgb.md)
+  emojis](/docs/en/sequences.md)
+- [RGB underglow](/docs/en/rgb.md)
   and [LED
-  backlights](https://github.com/KMKfw/kmk_firmware/blob/master/docs/led.md)
+  backlights](/docs/en/led.md)
 - One key can turn into many more based on [how many times you tap
-  it](https://github.com/KMKfw/kmk_firmware/blob/master/docs/tapdance.md)
+  it](/docs/en/tapdance.md)
 - Bluetooth HID and split keyboards. No more wires.
 
 ## Getting Started
 KMK requires [CircuitPython](https://circuitpython.org/) version 7.0 or higher.
 Our getting started guide can be found
-[here](https://github.com/KMKfw/kmk_firmware/blob/master/docs/Getting_Started.md).
-
-## The KMK Team
-
-KMK was originally authored by @klardotsh and @kdb424 over the winter of
-2018-19, and has been contributed to by numerous others since. Contributions
-are welcome from all, whether it's in the form of code, documentation, hardware
-designs, feature ideas, or anything else that comes to mind. A list of KMK's
-contributors can be found [on
-GitHub](https://github.com/KMKfw/kmk_firmware/graphs/contributors).
-
-> While Adafruit employees and affiliates are occasionally found in the commit
-> log and their help has been crucial to KMK's success, KMK is not an official
-> Adafruit project, and the Core team is not compensated by Adafruit for its
-> development.
+[here](/docs/en/Getting_Started.md).
 
 ## Code Style
 
