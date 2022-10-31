@@ -72,7 +72,7 @@ class ScrollDirection:
 
 
 class TrackballHandler:
-    def handle(self, keyboard, trackball, x, y, switch, state):
+    def handle(self, keyboard, trackball, x, y, switch, state=0):
         raise NotImplementedError
 
 
@@ -188,6 +188,9 @@ class Trackball(Module):
         self.current_handler = self.handlers[0]
         self.polling_interval = 20
 
+        self.breathing_value = 0
+        self.breathing_increment = 2
+
         chip_id = struct.unpack('<H', bytearray(self._i2c_rdwr([REG_CHIP_ID_L], 2)))[0]
         if chip_id != CHIP_ID:
             raise RuntimeError(
@@ -207,6 +210,7 @@ class Trackball(Module):
 
     def during_bootup(self, keyboard):
         self._timer = PeriodicTimer(self.polling_interval)
+        self._timer_breathe = PeriodicTimer(self.polling_interval * 1.5)
 
     def before_matrix_scan(self, keyboard):
         '''
@@ -224,6 +228,17 @@ class Trackball(Module):
         return
 
     def after_matrix_scan(self, keyboard):
+        if self._timer_breathe.tick():
+            if keyboard.extensions[0].get_caps_lock() or keyboard.extensions[0].get_num_lock():
+                self.set_white(100)
+            else:
+                self.set_white(0)
+                self.set_green(self._breathe())
+                if abs(self.breathing_value) == 44:
+                    self.set_red(100)
+                    self.set_green(100)
+                else:
+                    self.set_red(4)
         return
 
     def before_hid_send(self, keyboard):
@@ -324,7 +339,7 @@ class Trackball(Module):
             return 0, 0
 
         var_accel = 1
-        power = 2.5
+        power = 3  # 2.5
 
         angle_rad = math.atan2(raw_y, raw_x) + self.angle_offset
         vector_length = math.sqrt(pow(raw_x, 2) + pow(raw_y, 2))
@@ -337,3 +352,11 @@ class Trackball(Module):
         y_clamped = max(min(limit, y), -limit)
 
         return x_clamped, y_clamped
+
+    def _breathe(self):
+        self.breathing_value += self.breathing_increment
+        if self.breathing_increment == 2 and self.breathing_value == 50:
+            self.breathing_increment = -1
+        elif self.breathing_increment == -1 and self.breathing_value == 0:
+            self.breathing_increment = 2
+        return self.breathing_value
