@@ -72,7 +72,7 @@ class ScrollDirection:
 
 
 class TrackballHandler:
-    def handle(self, keyboard, trackball, x, y, switch, state=0):
+    def handle(self, keyboard, trackball, x, y, switch, state):
         raise NotImplementedError
 
 
