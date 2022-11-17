@@ -226,15 +226,17 @@ class StatusScene(DisplayScene):
         if self.rgb_ext and self.last_rgb_mode != self.rgb_ext.animation_mode:
             self.last_rgb_mode = self.rgb_ext.animation_mode
             return True
+        """
         if self.wpm != sandbox.extensions[2].wpm:
             self.wpm = sandbox.extensions[2].wpm
             return True
+        """
         return False
 
     def draw(self, oled, display, sandbox):
         display.fill(0)
         # add layer text
-        display.text("WPM: " + str(self.wpm), 5, 10, 1)
+        # display.text("WPM: " + str(self.wpm), 5, 10, 1)
         if len(sandbox.active_layers) > 1:
             layout_def = sandbox.active_layers[1]
             if self.separate_default_layer:
