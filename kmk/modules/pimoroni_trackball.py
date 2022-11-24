@@ -232,24 +232,36 @@ class Trackball(Module):
         return
 
     def after_matrix_scan(self, keyboard):
+        if keyboard.matrix_update or keyboard.secondary_matrix_update:
+            self.set_green(100)
         if self._timer_breathe.tick():
+            # if keyboard.extensions[0].get_caps_lock():  # or keyboard.extensions[0].get_num_lock():
+            #     self.set_white(100)
+            # else:
+            #     self.set_white(0)
             self.set_green(self._breathe())
             if abs(self.breathing_value) == 44:
+                # print('pulse')
                 self.set_red(100)
                 self.set_green(100)
             else:
                 if keyboard.extensions[0].get_caps_lock() and not keyboard.extensions[0].get_num_lock():
+                    # print('C-n')
                     self.set_white(50)
                     self.set_red(4)
                 elif keyboard.extensions[0].get_num_lock() and not keyboard.extensions[0].get_caps_lock():
+                    # print('c-N')
                     self.set_white(0)
-                    self.set_red(100)
+                    self.set_red(50)
                 elif keyboard.extensions[0].get_caps_lock() and keyboard.extensions[0].get_num_lock():
+                    # print('C-N')
                     self.set_white(100)
                     self.set_red(4)
                 else:
+                    # print('c-n')
                     self.set_white(0)
                     self.set_red(4)
+                    
         return
 
     def before_hid_send(self, keyboard):
