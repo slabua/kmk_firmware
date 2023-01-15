@@ -6,8 +6,8 @@ from kmk.extensions import Extension
 
 
 class BuzzerType(Extension):
-    def __init__(self):
-        self.enable = True
+    def __init__(self, enabled=True):
+        self.enable = enabled
         self.flag = False
         # Buzzer
         try:
@@ -63,4 +63,3 @@ class BuzzerType(Extension):
     def on_powersave_disable(self, keyboard):
         self.enable = True
         return
-    
