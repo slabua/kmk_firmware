@@ -2,15 +2,37 @@ import board
 
 from kmk.extensions.LED import LED
 from kmk.extensions.media_keys import MediaKeys
+from kmk.extensions.peg_oled_Display import (
+    Oled,
+    OledData,
+    OledDisplayMode,
+    OledReactionType,
+)
 from kmk.extensions.RGB import RGB, AnimationModes
 from kmk.keys import KC
 from kmk.kmk_keyboard import KMKKeyboard
-from kmk.modules.encoder import EncoderHandler
 from kmk.scanners import DiodeOrientation
 
-print('ANAVI Macro Pad 10')
-
 keyboard = KMKKeyboard()
+
+# I2C pins for the mini OLED display
+keyboard.SCL = board.D5
+keyboard.SDA = board.D4
+
+oled_ext = Oled(
+    OledData(
+        corner_one={0: OledReactionType.STATIC, 1: ['ANAVI Macro Pad 12']},
+        corner_two={0: OledReactionType.STATIC, 1: [' ']},
+        corner_three={0: OledReactionType.STATIC, 1: ['Open Source']},
+        corner_four={0: OledReactionType.STATIC, 1: [' ']},
+    ),
+    oWidth=128,
+    oHeight=64,
+    toDisplay=OledDisplayMode.TXT,
+    flip=False,
+)
+keyboard.extensions.append(oled_ext)
+
 led_ext = LED(
     led_pin=[
         board.D0,
@@ -29,7 +51,7 @@ keyboard.extensions.append(led_ext)
 # WS2812B LED strips on the back
 underglow = RGB(
     pixel_pin=board.D10,
-    num_pixels=4,
+    num_pixels=6,
     val_limit=100,
     val_default=25,
     animation_mode=AnimationModes.RAINBOW,
@@ -46,22 +68,14 @@ frontglow = RGB(
 )
 keyboard.extensions.append(frontglow)
 
-keyboard.col_pins = (
-    board.D4,
-    board.D5,
-    board.D6,
-)
-keyboard.row_pins = (
-    board.D3,
-    board.D2,
-    board.D1,
-)
+keyboard.col_pins = (board.D6, board.D8, board.D9)
+keyboard.row_pins = (board.D1, board.D2, board.D3, board.D7)
 keyboard.diode_orientation = DiodeOrientation.COL2ROW
 
 media_keys = MediaKeys()
 keyboard.extensions.append(media_keys)
 
-# Matrix 3x3 keymap, 9 keys in total
+# Matrix 4x3 keymap, 12 keys in total
 keyboard.keymap = [
     [
         KC.N1,
@@ -73,15 +87,11 @@ keyboard.keymap = [
         KC.N7,
         KC.N8,
         KC.N9,
+        KC.N0,
+        KC.A,
+        KC.B,
     ]
 ]
-
-# Rotary encoder that also acts as a key
-encoder_handler = EncoderHandler()
-encoder_handler.divisor = 2
-encoder_handler.pins = ((board.D8, board.D7, board.D9),)
-encoder_handler.map = (((KC.VOLD, KC.VOLU, KC.MUTE),),)
-keyboard.modules.append(encoder_handler)
 
 if __name__ == '__main__':
     keyboard.go()
